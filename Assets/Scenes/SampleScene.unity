@@ -947,6 +947,8 @@ MonoBehaviour:
   pointBOpen: {fileID: 1726946837}
   pointAClose: {fileID: 62547659}
   gripping: 0
+  targetsEmpty: {fileID: 776124940}
+  sensitivity: 0.5
 --- !u!1 &1152934995
 GameObject:
   m_ObjectHideFlags: 0
@@ -960,7 +962,7 @@ GameObject:
   - component: {fileID: 1152934998}
   - component: {fileID: 1152934997}
   m_Layer: 0
-  m_Name: Lower Arm
+  m_Name: Forearm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1442,7 +1444,7 @@ GameObject:
   - component: {fileID: 1726946839}
   - component: {fileID: 1726946838}
   m_Layer: 0
-  m_Name: Lower Arm
+  m_Name: Forearm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1651,6 +1653,8 @@ MonoBehaviour:
   pointBOpen: {fileID: 1152934996}
   pointAClose: {fileID: 62547659}
   gripping: 0
+  targetsEmpty: {fileID: 776124940}
+  sensitivity: 0.5
 --- !u!1 &1996946443
 GameObject:
   m_ObjectHideFlags: 0
