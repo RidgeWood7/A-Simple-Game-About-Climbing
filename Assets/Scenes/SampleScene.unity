@@ -937,7 +937,7 @@ GameObject:
   m_Component:
   - component: {fileID: 610600164}
   - component: {fileID: 610600163}
-  - component: {fileID: 610600162}
+  - component: {fileID: 610600165}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -945,33 +945,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!50 &610600162
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 610600161}
-  m_BodyType: 2
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 10
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!212 &610600163
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1042,6 +1015,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1477982888}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &610600165
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 610600161}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1723,7 +1723,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1063033658}
   - component: {fileID: 1063033660}
-  - component: {fileID: 1063033661}
   m_Layer: 0
   m_Name: Hand
   m_TagString: Untagged
@@ -1801,24 +1800,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1063033661
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1063033657}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5349fe547053f94b8a638c19f086c08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointAOpen: {fileID: 1607568443}
-  pointBOpen: {fileID: 1726946837}
-  pointAClose: {fileID: 62547659}
-  gripping: 0
-  targetsEmpty: {fileID: 776124940}
-  sensitivity: 0.5
 --- !u!1 &1095814408
 GameObject:
   m_ObjectHideFlags: 0
@@ -3399,7 +3380,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1762087746}
   - component: {fileID: 1762087748}
-  - component: {fileID: 1762087749}
   m_Layer: 0
   m_Name: Hand
   m_TagString: Untagged
@@ -3477,24 +3457,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1762087749
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1762087745}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5349fe547053f94b8a638c19f086c08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointAOpen: {fileID: 1215706033}
-  pointBOpen: {fileID: 1152934996}
-  pointAClose: {fileID: 62547659}
-  gripping: 0
-  targetsEmpty: {fileID: 776124940}
-  sensitivity: 0.5
 --- !u!1 &1837901405
 GameObject:
   m_ObjectHideFlags: 0
