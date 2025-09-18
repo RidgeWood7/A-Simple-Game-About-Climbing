@@ -12,21 +12,38 @@ public class PlayerHandler : MonoBehaviour
     private Vector2 velRight, targetVelRight;
     public Rigidbody2D rbRight;
     public GameObject shoulderRight;
+    private bool _clickingRight;
+    private bool _grabbingRight;
+    public HingeJoint2D jointRight;
 
     //Left Hand Variables
     private Vector2 velLeft, targetVelLeft;
     public Rigidbody2D rbLeft;
     public GameObject shoulderLeft;
-
-    public float reachRange;
+    private bool _clickingLeft;
+    private bool _grabbingLeft;
+    public HingeJoint2D jointLeft;
 
     //other
-    private bool _grabbing;
+    public float reachRange;
+    public Rigidbody2D rbBody;
+    public float castRadius;
+    public LayerMask grabbableLayer;
+
 
     private void Update()
     {
         velLeft = Vector2.Lerp(velLeft, targetVelLeft, Time.deltaTime * 50);
         velRight = Vector2.Lerp(velRight, targetVelRight, Time.deltaTime * 50);
+        
+        if (_clickingRight)
+        {
+            ClickingRight();
+        }
+        if (_clickingLeft)
+        {
+            ClickingLeft();
+        }
     }
 
     private void FixedUpdate()
@@ -34,7 +51,7 @@ public class PlayerHandler : MonoBehaviour
         //I need to add the clamp from the shoulder to the hand here (could call a function)
 
         //Right Hand
-        if (!_grabbing)
+        if (!_grabbingRight)
         {
             if ((rbRight.transform.position - shoulderRight.transform.position).magnitude > reachRange)
             {
@@ -51,15 +68,25 @@ public class PlayerHandler : MonoBehaviour
         }
         else
         {
-            rbRight.linearVelocity = velRight * -1;
+            if ((rbRight.transform.position - shoulderRight.transform.position).magnitude > reachRange)
+            {
+                Vector3 clampedPos = shoulderRight.transform.position + (rbRight.transform.position - shoulderRight.transform.position).normalized * reachRange;
+                rbRight.MovePosition(clampedPos);
+
+                rbRight.linearVelocity = Vector3.zero;
+            }
+            else
+            {
+                rbBody.linearVelocity = velRight * .2f;
+            }
         }
 
         //Left Hand
-        if (!_grabbing)
+        if (!_grabbingLeft)
         {
             if ((rbLeft.transform.position - shoulderLeft.transform.position).magnitude > reachRange)
             {
-                Vector3 clampedPos = shoulderRight.transform.position + (rbLeft.transform.position - shoulderLeft.transform.position).normalized * reachRange;
+                Vector3 clampedPos = shoulderLeft.transform.position + (rbLeft.transform.position - shoulderLeft.transform.position).normalized * reachRange;
                 rbLeft.MovePosition(clampedPos);
 
                 rbLeft.linearVelocity = Vector3.zero;
@@ -72,7 +99,17 @@ public class PlayerHandler : MonoBehaviour
         }
         else
         {
-            rbLeft.linearVelocity = velLeft * -1;
+            if ((rbLeft.transform.position - shoulderLeft.transform.position).magnitude > reachRange)
+            {
+                Vector3 clampedPos = shoulderRight.transform.position + (rbLeft.transform.position - shoulderLeft.transform.position).normalized * reachRange;
+                rbLeft.MovePosition(clampedPos);
+
+                rbLeft.linearVelocity = Vector3.zero;
+            }
+            else
+            {
+                rbBody.linearVelocity = velLeft * .2f;
+            }
         }
     }
 
@@ -94,11 +131,48 @@ public class PlayerHandler : MonoBehaviour
 
     public void GrabRight(InputAction.CallbackContext ctx)
     {
-
+        //click = 1 not clicking = 0
+        if (ctx.ReadValue<float>() == 1)
+        {
+            _clickingRight = true;
+            _grabbingRight = true;
+            ClickingRight();
+        }
+        else if (ctx.ReadValue<float>() == 0)
+        {
+            _grabbingRight = false;
+        }
     }
 
     public void GrabLeft(InputAction.CallbackContext ctx)
     {
+        //click = 1 not clicking = 0
+        if (ctx.ReadValue<float>() == 1)
+        {
+            _clickingLeft = true;
+            _grabbingLeft = true;
+            ClickingLeft();
+        }
+        else if (ctx.ReadValue<float>() == 0)
+        {
+            _grabbingLeft= false;
+        }
+    }
 
+    private void ClickingRight()
+    {
+        if (Physics2D.CircleCast(rbRight.position, castRadius, Vector2.zero, 1, grabbableLayer))
+        {
+
+        }
+        else {  }
+    }
+    private void ClickingLeft()
+    {
+        if (Physics2D.CircleCast(rbLeft.position, castRadius, Vector2.zero, 1, grabbableLayer))
+        {
+
+        }
+        else {  }
     }
 }
