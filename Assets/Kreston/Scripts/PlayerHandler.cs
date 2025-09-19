@@ -12,7 +12,6 @@ public class PlayerHandler : MonoBehaviour
     private Vector2 velRight, targetVelRight;
     public Rigidbody2D rbRight;
     public GameObject shoulderRight;
-    private bool _clickingRight;
     private bool _grabbingRight;
     public HingeJoint2D jointRight;
 
@@ -20,7 +19,6 @@ public class PlayerHandler : MonoBehaviour
     private Vector2 velLeft, targetVelLeft;
     public Rigidbody2D rbLeft;
     public GameObject shoulderLeft;
-    private bool _clickingLeft;
     private bool _grabbingLeft;
     public HingeJoint2D jointLeft;
 
@@ -35,21 +33,10 @@ public class PlayerHandler : MonoBehaviour
     {
         velLeft = Vector2.Lerp(velLeft, targetVelLeft, Time.deltaTime * 50);
         velRight = Vector2.Lerp(velRight, targetVelRight, Time.deltaTime * 50);
-        
-        if (_clickingRight)
-        {
-            ClickingRight();
-        }
-        if (_clickingLeft)
-        {
-            ClickingLeft();
-        }
     }
 
     private void FixedUpdate()
     {
-        //I need to add the clamp from the shoulder to the hand here (could call a function)
-
         //Right Hand
         if (!_grabbingRight)
         {
@@ -120,6 +107,9 @@ public class PlayerHandler : MonoBehaviour
 
         Gizmos.DrawWireSphere(shoulderRight.transform.position, reachRange);
         Gizmos.DrawWireSphere(shoulderLeft.transform.position, reachRange);
+
+        Gizmos.DrawWireSphere(rbRight.position, castRadius);
+        Gizmos.DrawWireSphere(rbLeft.position, castRadius);
     }
 
     public void MoveHands(InputAction.CallbackContext ctx)
@@ -134,8 +124,6 @@ public class PlayerHandler : MonoBehaviour
         //click = 1 not clicking = 0
         if (ctx.ReadValue<float>() == 1)
         {
-            _clickingRight = true;
-            _grabbingRight = true;
             ClickingRight();
         }
         else if (ctx.ReadValue<float>() == 0)
@@ -149,8 +137,6 @@ public class PlayerHandler : MonoBehaviour
         //click = 1 not clicking = 0
         if (ctx.ReadValue<float>() == 1)
         {
-            _clickingLeft = true;
-            _grabbingLeft = true;
             ClickingLeft();
         }
         else if (ctx.ReadValue<float>() == 0)
@@ -163,14 +149,16 @@ public class PlayerHandler : MonoBehaviour
     {
         if (Physics2D.CircleCast(rbRight.position, castRadius, Vector2.zero, 1, grabbableLayer))
         {
+            _grabbingRight = true;
 
         }
-        else {  }
+        else { }
     }
     private void ClickingLeft()
     {
         if (Physics2D.CircleCast(rbLeft.position, castRadius, Vector2.zero, 1, grabbableLayer))
         {
+            _grabbingLeft = true;
 
         }
         else {  }

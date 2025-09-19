@@ -3440,10 +3440,10 @@ MonoBehaviour:
   jointLeft: {fileID: 0}
   reachRange: 3
   rbBody: {fileID: 610600165}
-  castRadius: 0
+  castRadius: 0.2
   grabbableLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
 --- !u!114 &1477982891
 MonoBehaviour:
   m_ObjectHideFlags: 0
