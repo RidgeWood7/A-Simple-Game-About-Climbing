@@ -13,14 +13,15 @@ public class PlayerHandler : MonoBehaviour
     public Rigidbody2D rbRight;
     public GameObject shoulderRight;
     private bool _grabbingRight;
-    public HingeJoint2D jointRight;
+    public HingeJoint2D hingeRight;
 
     //Left Hand Variables
     private Vector2 velLeft, targetVelLeft;
     public Rigidbody2D rbLeft;
     public GameObject shoulderLeft;
     private bool _grabbingLeft;
-    public HingeJoint2D jointLeft;
+    public HingeJoint2D hingeLeft;
+
 
     //other
     public float reachRange;
@@ -37,6 +38,7 @@ public class PlayerHandler : MonoBehaviour
 
     private void FixedUpdate()
     {
+
         //Right Hand
         if (!_grabbingRight)
         {
@@ -47,25 +49,17 @@ public class PlayerHandler : MonoBehaviour
 
                 rbRight.linearVelocity = Vector3.zero;
             }
-            else
-            {
-                rbRight.linearVelocity = velRight;
-            }
-
+            rbRight.linearVelocity = velRight;
         }
         else
         {
-            if ((rbRight.transform.position - shoulderRight.transform.position).magnitude > reachRange)
-            {
-                Vector3 clampedPos = shoulderRight.transform.position + (rbRight.transform.position - shoulderRight.transform.position).normalized * reachRange;
-                rbRight.MovePosition(clampedPos);
+            rbBody.linearVelocity = velRight * .2f;
 
-                rbRight.linearVelocity = Vector3.zero;
-            }
-            else
-            {
-                rbBody.linearVelocity = velRight * .2f;
-            }
+            //if ((rbBody.transform.position - rbRight.transform.position).magnitude > reachRange)
+            //{
+            //    Vector3 clampedPos = rbRight.transform.position + (rbBody.transform.position - rbRight.transform.position).normalized * reachRange;
+            //    rbBody.MovePosition(clampedPos);
+            //}
         }
 
         //Left Hand
@@ -78,25 +72,17 @@ public class PlayerHandler : MonoBehaviour
 
                 rbLeft.linearVelocity = Vector3.zero;
             }
-            else
-            {
-                rbLeft.linearVelocity = velLeft;
-            }
-
+            rbLeft.linearVelocity = velLeft;
         }
         else
         {
-            if ((rbLeft.transform.position - shoulderLeft.transform.position).magnitude > reachRange)
-            {
-                Vector3 clampedPos = shoulderRight.transform.position + (rbLeft.transform.position - shoulderLeft.transform.position).normalized * reachRange;
-                rbLeft.MovePosition(clampedPos);
+            rbBody.linearVelocity = velLeft * .2f;
 
-                rbLeft.linearVelocity = Vector3.zero;
-            }
-            else
-            {
-                rbBody.linearVelocity = velLeft * .2f;
-            }
+            //if ((rbBody.transform.position - rbLeft.transform.position).magnitude > reachRange)
+            //{
+            //    Vector3 clampedPos = rbLeft.transform.position + (rbBody.transform.position - rbLeft.transform.position).normalized * reachRange;
+            //    rbBody.MovePosition(clampedPos);
+            //}
         }
     }
 
@@ -124,12 +110,13 @@ public class PlayerHandler : MonoBehaviour
         //click = 1 not clicking = 0
         if (ctx.ReadValue<float>() == 1)
         {
-            _grabbingRight = true;
-            ClickingRight();
+            if (Physics2D.CircleCast(rbRight.position, castRadius, Vector2.zero, 1, grabbableLayer)) { _grabbingRight = true; hingeRight.enabled = true; }
+            else { hingeRight.enabled = false; }
         }
         else if (ctx.ReadValue<float>() == 0)
         {
             _grabbingRight = false;
+            hingeRight.enabled = false;
         }
     }
 
@@ -138,31 +125,13 @@ public class PlayerHandler : MonoBehaviour
         //click = 1 not clicking = 0
         if (ctx.ReadValue<float>() == 1)
         {
-            _grabbingLeft = true;
-            ClickingLeft();
+            if (Physics2D.CircleCast(rbLeft.position, castRadius, Vector2.zero, 1, grabbableLayer)) { _grabbingLeft = true; hingeLeft.enabled = true; }
+            else { hingeLeft.enabled = false; }
         }
         else if (ctx.ReadValue<float>() == 0)
         {
             _grabbingLeft= false;
+            hingeLeft.enabled = false;
         }
-    }
-
-    private void ClickingRight()
-    {
-        if (Physics2D.CircleCast(rbRight.position, castRadius, Vector2.zero, 1, grabbableLayer))
-        {
-            _grabbingRight = true;
-
-        }
-        else { }
-    }
-    private void ClickingLeft()
-    {
-        if (Physics2D.CircleCast(rbLeft.position, castRadius, Vector2.zero, 1, grabbableLayer))
-        {
-            _grabbingLeft = true;
-
-        }
-        else {  }
     }
 }
