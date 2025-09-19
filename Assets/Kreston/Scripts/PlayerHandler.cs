@@ -124,6 +124,7 @@ public class PlayerHandler : MonoBehaviour
         //click = 1 not clicking = 0
         if (ctx.ReadValue<float>() == 1)
         {
+            _grabbingRight = true;
             ClickingRight();
         }
         else if (ctx.ReadValue<float>() == 0)
@@ -137,6 +138,7 @@ public class PlayerHandler : MonoBehaviour
         //click = 1 not clicking = 0
         if (ctx.ReadValue<float>() == 1)
         {
+            _grabbingLeft = true;
             ClickingLeft();
         }
         else if (ctx.ReadValue<float>() == 0)
