@@ -14,6 +14,7 @@ public class PlayerHandler : MonoBehaviour
     public GameObject shoulderRight;
     private bool _grabbingRight;
     public HingeJoint2D hingeRight;
+    private bool _callingRight;
 
     //Left Hand Variables
     private Vector2 velLeft, targetVelLeft;
@@ -21,6 +22,7 @@ public class PlayerHandler : MonoBehaviour
     public GameObject shoulderLeft;
     private bool _grabbingLeft;
     public HingeJoint2D hingeLeft;
+    private bool _callingLeft;
 
 
     //other
@@ -28,12 +30,51 @@ public class PlayerHandler : MonoBehaviour
     public Rigidbody2D rbBody;
     public float castRadius;
     public LayerMask grabbableLayer;
+    public float linearDampingUp;
+    public float linearDampingDown;
 
 
     private void Update()
     {
         velLeft = Vector2.Lerp(velLeft, targetVelLeft, Time.deltaTime * 50);
         velRight = Vector2.Lerp(velRight, targetVelRight, Time.deltaTime * 50);
+
+
+        //Linear Damping
+        //if (rbBody.linearVelocityY > 0)
+        //{
+        //    rbBody.linearDamping = linearDampingUp;
+        //}
+        //else{ rbBody.linearDamping = linearDampingDown; }
+
+        //right
+        if (_callingRight)
+        {
+            if (Physics2D.CircleCast(rbRight.position, castRadius, Vector2.zero, 1, grabbableLayer) && (rbLeft.transform.position - shoulderLeft.transform.position).magnitude < reachRange && (rbRight.transform.position - shoulderRight.transform.position).magnitude < reachRange)
+            {
+                _grabbingRight = true; hingeRight.enabled = true;
+            }
+            else { hingeRight.enabled = false; _grabbingRight = false; _callingRight = false; }
+        }
+        else
+        {
+            _grabbingRight = false;
+            hingeRight.enabled = false;
+        }
+        //left
+        if (_callingLeft)
+        {
+            if (Physics2D.CircleCast(rbLeft.position, castRadius, Vector2.zero, 1, grabbableLayer) && (rbLeft.transform.position - shoulderLeft.transform.position).magnitude < reachRange && (rbRight.transform.position - shoulderRight.transform.position).magnitude < reachRange)
+            {
+                _grabbingLeft = true; hingeLeft.enabled = true;
+            }
+            else { hingeLeft.enabled = false; _grabbingLeft = false; _callingLeft = false; }
+        }
+        else
+        {
+            _grabbingLeft = false;
+            hingeLeft.enabled = false;
+        }
     }
 
     private void FixedUpdate()
@@ -108,30 +149,55 @@ public class PlayerHandler : MonoBehaviour
     public void GrabRight(InputAction.CallbackContext ctx)
     {
         //click = 1 not clicking = 0
+
         if (ctx.ReadValue<float>() == 1)
         {
-            if (Physics2D.CircleCast(rbRight.position, castRadius, Vector2.zero, 1, grabbableLayer)) { _grabbingRight = true; hingeRight.enabled = true; }
-            else { hingeRight.enabled = false; }
-        }
-        else if (ctx.ReadValue<float>() == 0)
+            _callingRight = true;
+        }else
         {
-            _grabbingRight = false;
-            hingeRight.enabled = false;
+            _callingRight = false;
         }
+
+        //if (ctx.ReadValue<float>() == 1)
+        //{
+        //    if (Physics2D.CircleCast(rbRight.position, castRadius, Vector2.zero, 1, grabbableLayer) && (rbLeft.transform.position - shoulderLeft.transform.position).magnitude < reachRange && (rbRight.transform.position - shoulderRight.transform.position).magnitude < reachRange)
+        //    {
+        //        _grabbingRight = true; hingeRight.enabled = true;
+        //    }
+        //    else { hingeRight.enabled = false; _grabbingRight = false; }
+        //}
+        //else if (ctx.ReadValue<float>() == 0)
+        //{
+        //    _grabbingRight = false;
+        //    hingeRight.enabled = false;
+        //}
     }
 
     public void GrabLeft(InputAction.CallbackContext ctx)
     {
         //click = 1 not clicking = 0
+
         if (ctx.ReadValue<float>() == 1)
         {
-            if (Physics2D.CircleCast(rbLeft.position, castRadius, Vector2.zero, 1, grabbableLayer)) { _grabbingLeft = true; hingeLeft.enabled = true; }
-            else { hingeLeft.enabled = false; }
+            _callingLeft = true;
         }
-        else if (ctx.ReadValue<float>() == 0)
+        else
         {
-            _grabbingLeft= false;
-            hingeLeft.enabled = false;
+            _callingLeft = false;
         }
+
+        //if (ctx.ReadValue<float>() == 1)
+        //{
+        //    if (Physics2D.CircleCast(rbRight.position, castRadius, Vector2.zero, 1, grabbableLayer) && (rbLeft.transform.position - shoulderLeft.transform.position).magnitude < reachRange && (rbRight.transform.position - shoulderRight.transform.position).magnitude < reachRange)
+        //    {
+        //        _grabbingLeft = true; hingeLeft.enabled = true;
+        //    }
+        //    else { hingeLeft.enabled = false; _grabbingLeft = false; }
+        //}
+        //else if (ctx.ReadValue<float>() == 0)
+        //{
+        //    _grabbingLeft = false;
+        //    hingeLeft.enabled = false;
+        //}
     }
 }
