@@ -5,6 +5,7 @@ public class FallingPlat : MonoBehaviour
 {
     [SerializeField] private float fallDelay = 1f;
     [SerializeField] private float destroyDelay =2f;
+    [SerializeField] private float respawn = 4f;
 
     [SerializeField]  private Rigidbody2D rb;
 
@@ -20,5 +21,6 @@ public class FallingPlat : MonoBehaviour
         yield return new WaitForSeconds(fallDelay);
         rb.bodyType = RigidbodyType2D.Dynamic;
         Destroy(gameObject, destroyDelay);
+        
     }
 }
