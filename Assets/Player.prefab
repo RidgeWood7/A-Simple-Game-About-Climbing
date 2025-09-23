@@ -1268,6 +1268,7 @@ MonoBehaviour:
     m_Bits: 64
   linearDampingUp: 5
   linearDampingDown: -5
+  maxVelocity: 25
 --- !u!114 &1553952057310840878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1790,7 +1791,7 @@ Rigidbody2D:
   m_Mass: 1500
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 4
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
