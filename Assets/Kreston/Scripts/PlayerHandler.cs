@@ -32,6 +32,7 @@ public class PlayerHandler : MonoBehaviour
     public LayerMask grabbableLayer;
     public float linearDampingUp;
     public float linearDampingDown;
+    public float maxVelocity = 25f;
 
 
     private void Update()
@@ -40,12 +41,6 @@ public class PlayerHandler : MonoBehaviour
         velRight = Vector2.Lerp(velRight, targetVelRight, Time.deltaTime * 50);
 
 
-        //Linear Damping
-        //if (rbBody.linearVelocityY > 0)
-        //{
-        //    rbBody.linearDamping = linearDampingUp;
-        //}
-        //else{ rbBody.linearDamping = linearDampingDown; }
 
         //right
         if (_callingRight)
@@ -79,6 +74,8 @@ public class PlayerHandler : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //Velocity Cap
+        rbBody.linearVelocity = Vector2.ClampMagnitude(rbBody.linearVelocity, maxVelocity);
 
         //Right Hand
         if (!_grabbingRight)
