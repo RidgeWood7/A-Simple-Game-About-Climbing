@@ -12,5 +12,6 @@ public class Jumper : MonoBehaviour
         {
             collision.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * bounce, ForceMode2D.Impulse);
         }
+        //if (collision.gameObject.GetComponent("Jumper"))
     }
 }

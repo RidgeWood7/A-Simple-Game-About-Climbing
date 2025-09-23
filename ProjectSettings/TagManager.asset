@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Teleporter
+  - Jumper
   layers:
   - Default
   - TransparentFX

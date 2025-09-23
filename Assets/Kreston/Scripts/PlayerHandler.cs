@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -33,13 +34,29 @@ public class PlayerHandler : MonoBehaviour
     public float linearDampingUp;
     public float linearDampingDown;
     public float maxVelocity = 25f;
+    private bool _bouncing;
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Jumper"))
+        {
+            StartCoroutine(BounceTimer());
+        }
+    }
+
+    private IEnumerator BounceTimer()
+    {
+        Debug.Log("Bounce");
+        _bouncing = true;
+        yield return new WaitForSeconds(5f);
+        _bouncing = false;
+        Debug.Log("Not Bouncing");
+    }
 
     private void Update()
     {
         velLeft = Vector2.Lerp(velLeft, targetVelLeft, Time.deltaTime * 50);
         velRight = Vector2.Lerp(velRight, targetVelRight, Time.deltaTime * 50);
-
 
 
         //right
@@ -75,7 +92,10 @@ public class PlayerHandler : MonoBehaviour
     private void FixedUpdate()
     {
         //Velocity Cap
-        rbBody.linearVelocity = Vector2.ClampMagnitude(rbBody.linearVelocity, maxVelocity);
+        if (!_bouncing)
+        {
+            rbBody.linearVelocity = Vector2.ClampMagnitude(rbBody.linearVelocity, maxVelocity);
+        }
 
         //Right Hand
         if (!_grabbingRight)

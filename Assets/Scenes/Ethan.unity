@@ -3696,7 +3696,7 @@ Transform:
   m_GameObject: {fileID: 696156844}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.7, z: -5}
+  m_LocalPosition: {x: 26.8, y: 166.9, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8482,7 +8482,7 @@ GameObject:
   - component: {fileID: 1665235293}
   m_Layer: 0
   m_Name: Square (1)
-  m_TagString: Untagged
+  m_TagString: Jumper
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11331,11 +11331,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2032530734144949923, guid: 3b18e87a91442694e8a5493aa17deaf5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 26.8
       objectReference: {fileID: 0}
     - target: {fileID: 2032530734144949923, guid: 3b18e87a91442694e8a5493aa17deaf5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 165.2
       objectReference: {fileID: 0}
     - target: {fileID: 2032530734144949923, guid: 3b18e87a91442694e8a5493aa17deaf5, type: 3}
       propertyPath: m_LocalPosition.z
