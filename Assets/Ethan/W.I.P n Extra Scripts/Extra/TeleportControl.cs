@@ -1,24 +1,23 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TeleportControl : MonoBehaviour
 {
-    public Transform destination;
-    GameObject player;
-
-    private void Awake()
-    {
-        player = GameObject.Find("Body");
-    }
+    public Vector2 destination;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Body"))
+        if (collision.gameObject.name == "Body")
         {
-            if(Vector2.Distance(player.transform.position,transform.position) > 0.3f)
-            {
-                player.transform.position = destination.transform.position;
-            }
-                
+            collision.transform.position = destination;
+            collision.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
         }
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(destination, 1);
+        Gizmos.DrawLine(transform.position, destination);
+    }
 }
+
