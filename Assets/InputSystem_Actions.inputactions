@@ -505,7 +505,7 @@
                     "id": "92ad2888-b275-4fd2-b1bf-988dc8a94b9d",
                     "path": "<Mouse>/delta",
                     "interactions": "",
-                    "processors": "ScaleVector2(x=0.6,y=0.6)",
+                    "processors": "ScaleVector2(x=0.4,y=0.4)",
                     "groups": ";Keyboard&Mouse",
                     "action": "Move Hands",
                     "isComposite": false,
