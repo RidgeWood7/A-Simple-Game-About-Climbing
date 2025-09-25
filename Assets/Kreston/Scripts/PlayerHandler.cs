@@ -62,7 +62,7 @@ public class PlayerHandler : MonoBehaviour
         //right
         if (_callingRight)
         {
-            if (Physics2D.CircleCast(rbRight.position, castRadius, Vector2.zero, 1, grabbableLayer) && (rbLeft.transform.position - shoulderLeft.transform.position).magnitude < reachRange && (rbRight.transform.position - shoulderRight.transform.position).magnitude < reachRange)
+            if (Physics2D.CircleCast(rbRight.position, castRadius, Vector2.zero, 1, grabbableLayer) && (rbLeft.transform.position - shoulderLeft.transform.position).magnitude < (reachRange + 1) && (rbRight.transform.position - shoulderRight.transform.position).magnitude < (reachRange + 1))
             {
                 _grabbingRight = true; hingeRight.enabled = true;
             }
@@ -76,7 +76,7 @@ public class PlayerHandler : MonoBehaviour
         //left
         if (_callingLeft)
         {
-            if (Physics2D.CircleCast(rbLeft.position, castRadius, Vector2.zero, 1, grabbableLayer) && (rbLeft.transform.position - shoulderLeft.transform.position).magnitude < reachRange && (rbRight.transform.position - shoulderRight.transform.position).magnitude < reachRange)
+            if (Physics2D.CircleCast(rbLeft.position, castRadius, Vector2.zero, 1, grabbableLayer) && (rbLeft.transform.position - shoulderLeft.transform.position).magnitude < (reachRange + 1) && (rbRight.transform.position - shoulderRight.transform.position).magnitude < (reachRange + 1))
             {
                 _grabbingLeft = true; hingeLeft.enabled = true;
             }
